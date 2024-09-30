@@ -114,11 +114,19 @@ void MainWindow::prepareSort()
      * Appel de la fonction startSorting du threadManager de manière non
      * bloquante.
      */
+    #ifdef USING_QT5
     sortingAsync = QtConcurrent::run(
                 threadManager,
                 &ThreadManager::startSorting,
                 seq,
                 ui->inputThreads->text().toInt());
+    #elif USING_QT6
+    sortingAsync = QtConcurrent::run(
+                &ThreadManager::startSorting,
+                threadManager,
+                seq,
+                ui->inputThreads->text().toInt());
+    #endif
     /*
      * Ajout d'un watcher permettant de signaler à MainWindow la fin de la tache
      * asynchrone

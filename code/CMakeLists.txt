@@ -10,6 +10,12 @@ if (NOT Qt5_FOUND)
     find_package(Qt6 COMPONENTS Core Gui Concurrent Widgets REQUIRED)
 endif()
 
+if (Qt5_FOUND)
+    add_definitions(-DUSING_QT5)
+else()
+    add_definitions(-DUSING_QT6)
+endif()
+
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/ui)
 
 file(GLOB_RECURSE SOURCES "src/*.cpp")
