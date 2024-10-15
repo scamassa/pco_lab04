@@ -4,7 +4,7 @@
 #include <QGraphicsView>
 #include <QGraphicsItem>
 #include <pcosynchro/pcosemaphore.h>
-#include <QLabel>
+#include <QGraphicsSimpleTextItem>
 #include <QLine>
 #include <QPen>
 
@@ -57,14 +57,14 @@ public:
     DisplayView(unsigned int nbSuppliers, unsigned int nbClinic, unsigned int nbHospitals, QWidget *parent);
     //~DisplayView();
 
-    std::vector<QLabel*> funds;
-    std::vector<QLabel*> syringes;
-    std::vector<QLabel*> pills;
-    std::vector<QLabel*> scalpels;
-    std::vector<QLabel*> thermometers;
-    std::vector<QLabel*> stethoscopes;
-    std::vector<QLabel*> patientsSick;
-    std::vector<QLabel*> patientsHealed;
+    std::vector<QGraphicsSimpleTextItem*> funds;
+    std::vector<QGraphicsSimpleTextItem*> syringes;
+    std::vector<QGraphicsSimpleTextItem*> pills;
+    std::vector<QGraphicsSimpleTextItem*> scalpels;
+    std::vector<QGraphicsSimpleTextItem*> thermometers;
+    std::vector<QGraphicsSimpleTextItem*> stethoscopes;
+    std::vector<QGraphicsSimpleTextItem*> patientsSick;
+    std::vector<QGraphicsSimpleTextItem*> patientsHealed;
 
     std::vector<ProductionItem*> m_productItem;
 

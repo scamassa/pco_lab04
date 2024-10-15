@@ -26,91 +26,107 @@ void DisplayView::place_resources(int x, int y, int id, std::vector<bool> resour
     fund_item->setPixmap(_fund);
     fund_item->setPos(x, y + -1 * (ELEMENT_WIDTH_BIG / 3));
     m_scene->addItem(fund_item);
-    funds[id] = new QLabel(this);
-    funds[id]->setText("Waiting...");
-    funds[id]->setGeometry(QRect(x-50, y + (index2-1) * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+    
+    // Créer et positionner le texte pour les fonds
+    funds[id] = new QGraphicsSimpleTextItem("Waiting...");
+    funds[id]->setPos(x - 50 + 80, y + (index2 - 1) * (ELEMENT_WIDTH_BIG / 3 / 2) + 55);
+    m_scene->addItem(funds[id]);
 
-    if(resources[0]){
+    if (resources[0]) {
         QPixmap petrol(QString("images/patientSick.png"));
         QPixmap _petrol = petrol.scaledToWidth(ELEMENT_WIDTH / 3);
         auto petrol_item = new ResourceItem();
         petrol_item->setPixmap(_petrol);
-        petrol_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        petrol_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(petrol_item);
-        patientsSick[id] = new QLabel(this);
-        patientsSick[id]->setText("Waiting...");
-        patientsSick[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        // Créer et positionner le texte pour les patients malades
+        patientsSick[id] = new QGraphicsSimpleTextItem("Waiting...");
+        patientsSick[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(patientsSick[id]);
     }
 
-    if(resources[1]){
+    if (resources[1]) {
         QPixmap copper(QString("images/patientHealed.png"));
         QPixmap _copper = copper.scaledToWidth(ELEMENT_WIDTH / 3);
         auto copper_item = new ResourceItem();
         copper_item->setPixmap(_copper);
-        copper_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        copper_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(copper_item);
-        patientsHealed[id] = new QLabel(this);
-        patientsHealed[id]->setText("Waiting...");
-        patientsHealed[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        // Créer et positionner le texte pour les patients guéris
+        patientsHealed[id] = new QGraphicsSimpleTextItem("Waiting...");
+        patientsHealed[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(patientsHealed[id]);
     }
-    if(resources[2]){
+
+    // Répéter pour les autres ressources
+    if (resources[2]) {
         QPixmap chip(QString("images/syringe.png"));
         QPixmap _chip = chip.scaledToWidth(ELEMENT_WIDTH / 3);
         auto chip_item = new ResourceItem();
         chip_item->setPixmap(_chip);
-        chip_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        chip_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(chip_item);
-        syringes[id] = new QLabel(this);
-        syringes[id]->setText("Waiting...");
-        syringes[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        syringes[id] = new QGraphicsSimpleTextItem("Waiting...");
+        syringes[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(syringes[id]);
     }
 
-    if(resources[3]){
+    if (resources[3]) {
         QPixmap sand(QString("images/pill.png"));
         QPixmap _sand = sand.scaledToWidth(ELEMENT_WIDTH / 3);
         auto sand_item = new ResourceItem();
         sand_item->setPixmap(_sand);
-        sand_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        sand_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(sand_item);
-        pills[id] = new QLabel(this);
-        pills[id]->setText("Waiting...");
-        pills[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        pills[id] = new QGraphicsSimpleTextItem("Waiting...");
+        pills[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(pills[id]);
     }
 
-    if(resources[4]){
+    if (resources[4]) {
         QPixmap robot(QString("images/scalpel.png"));
         QPixmap _robot = robot.scaledToWidth(ELEMENT_WIDTH / 3);
         auto robot_item = new ResourceItem();
         robot_item->setPixmap(_robot);
-        robot_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        robot_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(robot_item);
-        scalpels[id] = new QLabel(this);
-        scalpels[id]->setText("Waiting...");
-        scalpels[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        scalpels[id] = new QGraphicsSimpleTextItem("Waiting...");
+        scalpels[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(scalpels[id]);
     }
-    if(resources[5]){
+
+    if (resources[5]) {
         QPixmap plastic(QString("images/thermometer.png"));
         QPixmap _plastic = plastic.scaledToWidth(ELEMENT_WIDTH / 3);
         auto plastic_item = new ResourceItem();
         plastic_item->setPixmap(_plastic);
-        plastic_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        plastic_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(plastic_item);
-        thermometers[id] = new QLabel(this);
-        thermometers[id]->setText("Waiting...");
-        thermometers[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        thermometers[id] = new QGraphicsSimpleTextItem("Waiting...");
+        thermometers[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(thermometers[id]);
     }
-    if(resources[6]){
+
+    if (resources[6]) {
         QPixmap plastic(QString("images/stethoscope.png"));
         QPixmap _plastic = plastic.scaledToWidth(ELEMENT_WIDTH / 3);
         auto plastic_item = new ResourceItem();
         plastic_item->setPixmap(_plastic);
-        plastic_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3/2));
+        plastic_item->setPos(x + (ELEMENT_WIDTH_BIG), y + index++ * (ELEMENT_WIDTH_BIG / 3 / 2));
         m_scene->addItem(plastic_item);
-        stethoscopes[id] = new QLabel(this);
-        stethoscopes[id]->setText("Waiting...");
-        stethoscopes[id]->setGeometry(QRect(x - 50 + (ELEMENT_WIDTH_BIG), y + index2++ * (ELEMENT_WIDTH_BIG / 3/2), 30, 30));
+        
+        stethoscopes[id] = new QGraphicsSimpleTextItem("Waiting...");
+        stethoscopes[id]->setPos(x - 50 + (ELEMENT_WIDTH_BIG) + 80, y + index2++ * (ELEMENT_WIDTH_BIG / 3 / 2) + 50);
+        m_scene->addItem(stethoscopes[id]);
     }
 }
+
 
 DisplayView::DisplayView(unsigned int nbSuppliers, unsigned int nbClinics, unsigned int nbHospitals, QWidget *parent) :
     QGraphicsView(parent)
@@ -120,18 +136,18 @@ DisplayView::DisplayView(unsigned int nbSuppliers, unsigned int nbClinics, unsig
     m_scene = new QGraphicsScene(this);
     createResourceAssociations(nbSuppliers, nbHospitals, nbClinics);
 
-    funds = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    syringes = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    pills = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    scalpels = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    thermometers = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    stethoscopes = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    patientsSick = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
-    patientsHealed = std::vector<QLabel*>(nbSuppliers + nbClinics + nbHospitals);
+    funds = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    syringes = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    pills = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    scalpels = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    thermometers = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    stethoscopes = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    patientsSick = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
+    patientsHealed = std::vector<QGraphicsSimpleTextItem*>(nbSuppliers + nbClinics + nbHospitals);
 
     this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-    this->setMinimumHeight(SCENEWIDTH);
-    this->setMinimumWidth(SCENELENGTH);
+    // this->setMinimumHeight(SCENEWIDTH);
+    // this->setMinimumWidth(SCENELENGTH);
     this->setScene(m_scene);
     this->setMaximumHeight(SCENEWIDTH);
     this->setMaximumWidth(SCENELENGTH);
