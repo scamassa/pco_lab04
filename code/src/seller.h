@@ -5,6 +5,7 @@
 #include <QStringBuilder>
 #include <map>
 #include <vector>
+#include "costs.h"
 
 enum class ItemType {
     PatientSick, PatientHealed, Syringe, Pill, Scalpel, Thermometer, Stethoscope, Nothing
