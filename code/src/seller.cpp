@@ -1,10 +1,7 @@
 #include "seller.h"
-
 #include <algorithm>
 #include <random>
 #include <cassert>
-
-#include "costs.h"
 
 Seller *Seller::chooseRandomSeller(std::vector<Seller *> &sellers) {
     assert(sellers.size());
@@ -55,6 +52,7 @@ EmployeeType getEmployeeThatProduces(ItemType item) {
     switch (item) {
         case ItemType::Syringe : /* fallthrough */
         case ItemType::Pill : /* fallthrough */
+        case ItemType::Scalpel : /* fallthrough */
         case ItemType::Thermometer : /* fallthrough */
         case ItemType::PatientSick : /* fallthrough */
         case ItemType::Stethoscope : return EmployeeType::Supplier;
