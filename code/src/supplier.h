@@ -25,19 +25,19 @@ public:
     std::map<ItemType, int> getItemsForSale() override;
 
     /**
-     * @brief Envoyer une quantité d'item spécifique
-     * @param it : Type d'item à envoyer
-     * @param qty : Quantité à envoyer
-     * @param bill : Coût total de l'envoi
-     * @return Le montant de la transaction
+     * @brief Fonction permettant de proposer des ressources au vendeur
+     * @param what Le type de resource à acheter
+     * @param qty Nombre de ressources voulant être achetées
+     * @param bill Le coût de la transaction
+     * @return La quantité acceptée ou la facture (peu dépendre de votre logique) et 0 si la transaction n'est pas acceptée.
      */
     int send(ItemType it, int qty, int bill) override;
 
     /**
-     * @brief Demander une quantité d'item spécifique
-     * @param what : Type d'item demandé
-     * @param qty : Quantité demandée
-     * @return Le montant total de la demande
+     * @brief Fonction permettant d'acheter des ressources au vendeur
+     * @param what Le type de resource à acheter
+     * @param qty Nombre de ressources voulant être achetées
+     * @return La facture : côut de la resource * le nombre, 0 si indisponible
      */
     int request(ItemType what, int qty) override;
 

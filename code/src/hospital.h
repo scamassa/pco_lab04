@@ -37,21 +37,20 @@ public:
     std::map<ItemType, int> getItemsForSale() override;
 
     /**
-     * @brief send
-     * Transfère des patients hors de l'hôpital, par exemple vers une autre institution.
-     * @param it Le type de patients échangés (malades ou soignés)
-     * @param qty La quantité de patients à transférer
-     * @param bill Le coût associé à la transaction
-     * @return Le coût de la transaction, ou 0 si l'échange n'est pas possible (ex. manque de lits).
+     * @brief Fonction permettant de proposer des ressources au vendeur
+     * @param what Le type de resource à acheter
+     * @param qty Nombre de ressources voulant être achetées
+     * @param bill Le coût de la transaction
+     * @return La quantité acceptée ou la facture (peu dépendre de votre logique) et 0 si la transaction n'est pas acceptée.
      */
     int send(ItemType it, int qty, int bill) override;
 
     /**
      * @brief request
-     * Demande une certaine quantité de patients d'un type spécifique (malades ou soignés).
-     * @param what Le type de patients demandés
-     * @param qty La quantité de patients demandée
-     * @return Le nombre de patients reçus ou 0 si la demande n'est pas satisfaite.
+     * Offre la possibilité de demander des items spécifique..
+     * @param what Le type d'item demandé
+     * @param qty La quantité d'items demandée
+     * @return Le coût de la transaction, ou 0 si l'échange n'est pas possible.
      */
     int request(ItemType what, int qty) override;
 
