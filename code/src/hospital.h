@@ -46,11 +46,10 @@ public:
     int send(ItemType it, int qty, int bill) override;
 
     /**
-     * @brief request
-     * Offre la possibilité de demander des items spécifique..
-     * @param what Le type d'item demandé
-     * @param qty La quantité d'items demandée
-     * @return Le coût de la transaction, ou 0 si l'échange n'est pas possible.
+     * @brief Fonction permettant d'acheter des ressources au vendeur
+     * @param what Le type de resource à acheter
+     * @param qty Nombre de ressources voulant être achetées
+     * @return La facture : côut de la resource * le nombre, 0 si indisponible
      */
     int request(ItemType what, int qty) override;
 
