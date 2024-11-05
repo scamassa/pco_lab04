@@ -21,8 +21,8 @@ endif()
 
 set(CMAKE_AUTOUIC_SEARCH_PATHS ${CMAKE_CURRENT_SOURCE_DIR}/ui)
 
+
 include_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/internal
     ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
@@ -43,10 +43,7 @@ set(HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/sharedsection.h
 )
 
-set(FORMS
-    ${CMAKE_CURRENT_SOURCE_DIR}/ui/dialog.ui
-)
-
+qt_add_resources(SOURCES ../../QtrainSim/qtrainsim.qrc)
 
 add_executable(PCO_LAB04_prog1 ${SOURCES} ${HEADERS})
 
@@ -57,5 +54,4 @@ else()
     target_link_libraries(PCO_LAB04_prog1 PRIVATE Qt6::Core Qt6::Gui Qt6::Widgets Qt6::PrintSupport Qt6::Core5Compat qtrainsim -lpcosynchro)
 endif()
 
-file(COPY ../../QtrainSim/data DESTINATION ${CMAKE_BINARY_DIR}/code/prog1)
-file(COPY ../../QtrainSim/images DESTINATION ${CMAKE_BINARY_DIR}/code/prog1)
+file(COPY ../../QtrainSim/data DESTINATION ${CMAKE_BINARY_DIR}/code_student/prog1)
