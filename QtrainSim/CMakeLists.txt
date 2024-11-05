@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(qtrainsim LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
 
 # Recherche Qt5 ou Qt6 avec 'REQUIRED' pour forcer l'arrêt si aucun Qt n'est trouvé
 find_package(Qt5 COMPONENTS Core Gui Test Widgets PrintSupport)
@@ -39,5 +40,4 @@ endif()
 target_include_directories(qtrainsim PUBLIC ${CMAKE_CURRENT_LIST_DIR}/src)
 
 # Copier les ressources images et data dans le répertoire de build
-file(COPY images/ DESTINATION ${CMAKE_BINARY_DIR}/images)
 file(COPY data/ DESTINATION ${CMAKE_BINARY_DIR}/data)
