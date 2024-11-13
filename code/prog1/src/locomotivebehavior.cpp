@@ -23,8 +23,10 @@ void LocomotiveBehavior::run()
     while(true) {
         // On attend qu'une locomotive arrive sur le contact 1.
         // Pertinent de faire ça dans les deux threads? Pas sûr...
-        attendre_contact(1);
-        loco.afficherMessage("J'ai atteint le contact 1");
+        attendre_contact(contactBeforeShared);
+        loco.afficherMessage("Je vais entrer en critique");
+        attendre_contact(contactAfterShared);
+        loco.afficherMessage("Je sors de critique");
     }
 }
 

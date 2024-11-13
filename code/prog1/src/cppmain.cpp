@@ -48,29 +48,29 @@ int cmain()
     // Vous devrez utiliser cette fonction pour la section partagée pour aiguiller les locos
     // sur le bon parcours (par exemple à la sortie de la section partagée) vous pouvez l'
     // appeler depuis vos thread des locos par ex.
-    diriger_aiguillage(1,  TOUT_DROIT, 0);
-    diriger_aiguillage(2,  DEVIE     , 0);
+    diriger_aiguillage(1,  DEVIE, 0);
+    diriger_aiguillage(2,  TOUT_DROIT     , 0);
     diriger_aiguillage(3,  DEVIE     , 0);
     diriger_aiguillage(4,  TOUT_DROIT, 0);
     diriger_aiguillage(5,  TOUT_DROIT, 0);
     diriger_aiguillage(6,  TOUT_DROIT, 0);
     diriger_aiguillage(7,  TOUT_DROIT, 0);
     diriger_aiguillage(8,  DEVIE     , 0);
-    diriger_aiguillage(9,  DEVIE     , 0);
-    diriger_aiguillage(10, TOUT_DROIT, 0);
+    diriger_aiguillage(9,  TOUT_DROIT, 0);
+    diriger_aiguillage(10, DEVIE, 0);
     diriger_aiguillage(11, TOUT_DROIT, 0);
     diriger_aiguillage(12, TOUT_DROIT, 0);
     diriger_aiguillage(13, TOUT_DROIT, 0);
     diriger_aiguillage(14, DEVIE     , 0);
     diriger_aiguillage(15, DEVIE     , 0);
     diriger_aiguillage(16, TOUT_DROIT, 0);
-    diriger_aiguillage(17, TOUT_DROIT, 0);
+    diriger_aiguillage(17, DEVIE, 0);
     diriger_aiguillage(18, TOUT_DROIT, 0);
     diriger_aiguillage(19, TOUT_DROIT, 0);
     diriger_aiguillage(20, DEVIE     , 0);
     diriger_aiguillage(21, DEVIE     , 0);
     diriger_aiguillage(22, TOUT_DROIT, 0);
-    diriger_aiguillage(23, TOUT_DROIT, 0);
+    diriger_aiguillage(23, DEVIE, 0);
     diriger_aiguillage(24, TOUT_DROIT, 0);
     // diriger_aiguillage(/*NUMERO*/, /*TOUT_DROIT | DEVIE*/, /*0*/);
 
@@ -80,11 +80,11 @@ int cmain()
 
     // Loco 0
     // Exemple de position de départ
-    locoA.fixerPosition(25, 32);
+    locoA.fixerPosition(23, 16);
 
     // Loco 1
     // Exemple de position de départ
-    locoB.fixerPosition(22, 28);
+    locoB.fixerPosition(31, 30);
 
     /***********
      * Message *
@@ -101,9 +101,9 @@ int cmain()
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
 
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection /*, autres paramètres ...*/);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 18, 16);
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection /*, autres paramètres ...*/);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 14, 13);
 
     // Lanchement des threads
     afficher_message(qPrintable(QString("Lancement thread loco A (numéro %1)").arg(locoA.numero())));
