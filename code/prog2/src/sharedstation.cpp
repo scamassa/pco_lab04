@@ -9,5 +9,20 @@
 
 #include "sharedstation.h"
 
-SharedStation::SharedStation(int nbTrains, int nbTours)
-{}
+SharedStation::SharedStation(int _nbTrains) : nbTrains(_nbTrains), mutex(1) {
+}
+
+int SharedStation::getTrains() { return nbTrains; }
+int SharedStation::getTrainsWaiting() { return nbTrainsWaiting; }
+
+void SharedStation::waitingAtStation() {
+    mutex.acquire();
+    ++nbTrainsWaiting;
+    mutex.release();
+}
+
+void SharedStation::leavingStation() {
+    mutex.acquire();
+    nbTrainsWaiting = 0;
+    mutex.release();
+}
