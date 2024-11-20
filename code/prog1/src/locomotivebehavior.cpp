@@ -6,6 +6,7 @@
 
 #include "locomotivebehavior.h"
 #include "ctrain_handler.h"
+#include <unistd.h>
 
 void LocomotiveBehavior::run()
 {
@@ -21,10 +22,24 @@ void LocomotiveBehavior::run()
     //sharedSection->leave(loco);
 
     while(true) {
+        attendre_contact(stationID);
+        if (toursDone >= nbTourMax) {
+            station->waitingAtStation();
+            loco.arreter();
+            toursDone = 0;
+            loco.inverserSens();
+            while (station->getTrainsWaiting() < station->getTrains()) {}
+            sleep(2);
+            station->leavingStation();
+            std::swap(contactBeforeShared, contactAfterShared);
+            loco.demarrer();
+        } else {
+            ++toursDone;
+        }
+
         // On attend qu'une locomotive arrive sur le contact 1.
         // Pertinent de faire ça dans les deux threads? Pas sûr...
         attendre_contact(contactBeforeShared);
-        loco.afficherMessage("Je vais entrer en critique");
         sharedSection->access(this->loco);
 
         for (size_t x = 0; x < trainSwitchMap.size(); ++x) {
@@ -33,7 +48,6 @@ void LocomotiveBehavior::run()
 
         attendre_contact(contactAfterShared);
         sharedSection->leave(this->loco);
-        loco.afficherMessage("Je sors de critique");
     }
 }
 
@@ -51,4 +65,15 @@ void LocomotiveBehavior::printCompletionMessage()
 {
     qDebug() << "[STOP] Thread de la loco" << loco.numero() << "a terminé correctement";
     loco.afficherMessage("J'ai terminé");
+}
+
+LocomotiveBehavior::LocomotiveBehavior(Locomotive& loco,
+                                       std::shared_ptr<SharedSectionInterface> sharedSection,
+                                       int nBefore,
+                                       int nAfter,
+                                       std::shared_ptr<SharedStation> station,
+                                       int nbTours,
+                                       int stationID
+                                       ) : loco(loco), sharedSection(sharedSection), contactBeforeShared(nBefore), contactAfterShared(nAfter), station(station), nbTourMax(nbTours), stationID(stationID) {
+    toursDone = 0;
 }

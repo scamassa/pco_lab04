@@ -10,6 +10,7 @@
 #include "locomotivebehavior.h"
 #include "sharedsectioninterface.h"
 #include "sharedsection.h"
+#include "sharedstation.h"
 
 // Locomotives :
 // Vous pouvez changer les vitesses initiales, ou utiliser la fonction loco.fixerVitesse(vitesse);
@@ -98,19 +99,21 @@ int cmain()
     /*********************
      * Threads des locos *
      ********************/
+    int nbTrains = 2;
 
     // Création de la section partagée
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
+    std::shared_ptr<SharedStation> station = std::make_shared<SharedStation>(nbTrains);
 
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 17, 23);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 17, 23, station, 2, 26);
     if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveA.get())) {
         ptrLoco->addSwitch(11, DEVIE);
         ptrLoco->addSwitch(9, DEVIE);
     }
 
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 7, 19);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 6, 13, station, 3, 31);
     if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveB.get())) {
         ptrLoco->addSwitch(11, TOUT_DROIT);
         ptrLoco->addSwitch(9, TOUT_DROIT);

@@ -10,6 +10,7 @@
 #include "locomotive.h"
 #include "launchable.h"
 #include "sharedsectioninterface.h"
+#include "sharedstation.h"
 
 /**
  * @brief La classe LocomotiveBehavior représente le comportement d'une locomotive
@@ -21,9 +22,14 @@ public:
      * \brief locomotiveBehavior Constructeur de la classe
      * \param loco la locomotive dont on représente le comportement
      */
-    LocomotiveBehavior(Locomotive& loco, std::shared_ptr<SharedSectionInterface> sharedSection, int nBefore, int nAfter) : loco(loco), sharedSection(sharedSection), contactBeforeShared(nBefore), contactAfterShared(nAfter) {
-
-    }
+    LocomotiveBehavior(Locomotive& loco,
+                       std::shared_ptr<SharedSectionInterface> sharedSection,
+                       int nBefore,
+                       int nAfter,
+                       std::shared_ptr<SharedStation> station,
+                       int nbTours,
+                       int stationID
+                       );
 
 
     /**
@@ -68,7 +74,10 @@ protected:
 
     int contactBeforeShared, contactAfterShared;
 
-    std::vector<std::pair<int, int>> trainSwitchMap; // Map of Switch ID to SwitchData
+    std::vector<std::pair<int, int>> trainSwitchMap;    // Map of Switch ID to SwitchData
+    std::shared_ptr<SharedStation> station;
+    int toursDone, nbTourMax;
+    int stationID;
 };
 
 #endif // LOCOMOTIVEBEHAVIOR_H
