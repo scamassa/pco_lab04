@@ -103,10 +103,18 @@ int cmain()
     std::shared_ptr<SharedSectionInterface> sharedSection = std::make_shared<SharedSection>();
 
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 18, 16);
-    // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 14, 13);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 17, 23);
+    if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveA.get())) {
+        ptrLoco->addSwitch(11, DEVIE);
+        ptrLoco->addSwitch(9, DEVIE);
+    }
 
+    // Création du thread pour la loco 1
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 7, 19);
+    if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveB.get())) {
+        ptrLoco->addSwitch(11, TOUT_DROIT);
+        ptrLoco->addSwitch(9, TOUT_DROIT);
+    }
     // Lanchement des threads
     afficher_message(qPrintable(QString("Lancement thread loco A (numéro %1)").arg(locoA.numero())));
     locoBehaveA->startThread();

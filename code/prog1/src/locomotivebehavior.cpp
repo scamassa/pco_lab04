@@ -27,10 +27,18 @@ void LocomotiveBehavior::run()
         loco.afficherMessage("Je vais entrer en critique");
         sharedSection->access(this->loco);
 
+        for (size_t x = 0; x < trainSwitchMap.size(); ++x) {
+            diriger_aiguillage(trainSwitchMap.at(x).first, trainSwitchMap.at(x).second, 0);
+        }
+
         attendre_contact(contactAfterShared);
         sharedSection->leave(this->loco);
         loco.afficherMessage("Je sors de critique");
     }
+}
+
+void LocomotiveBehavior::addSwitch(int switchID, int direction) {
+    trainSwitchMap.emplace_back(std::make_pair(switchID, direction));
 }
 
 void LocomotiveBehavior::printStartMessage()

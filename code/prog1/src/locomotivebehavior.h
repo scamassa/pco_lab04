@@ -25,6 +25,15 @@ public:
 
     }
 
+
+    /**
+     * @brief addSwitch Permet d'ajouter les swtichs concernés par la section partagée.
+     * @param switchID  ID du switch
+     * @param direction La direction dans laquelle l'orienter
+     */
+    void addSwitch(int switchID, int direction);
+
+
 protected:
     /*!
      * \brief run Fonction lancée par le thread, représente le comportement de la locomotive
@@ -58,6 +67,8 @@ protected:
      */
 
     int contactBeforeShared, contactAfterShared;
+
+    std::vector<std::pair<int, int>> trainSwitchMap; // Map of Switch ID to SwitchData
 };
 
 #endif // LOCOMOTIVEBEHAVIOR_H
