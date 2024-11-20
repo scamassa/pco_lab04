@@ -56,6 +56,7 @@ protected:
      *
      * Par exemple la priorité ou le parcours
      */
+
     int contactBeforeShared, contactAfterShared;
 };
 

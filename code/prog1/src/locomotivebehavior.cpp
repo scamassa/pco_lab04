@@ -25,7 +25,10 @@ void LocomotiveBehavior::run()
         // Pertinent de faire ça dans les deux threads? Pas sûr...
         attendre_contact(contactBeforeShared);
         loco.afficherMessage("Je vais entrer en critique");
+        sharedSection->access(this->loco);
+
         attendre_contact(contactAfterShared);
+        sharedSection->leave(this->loco);
         loco.afficherMessage("Je sors de critique");
     }
 }

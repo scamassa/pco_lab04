@@ -27,7 +27,7 @@ public:
      * @brief SharedSection Constructeur de la classe qui représente la section partagée.
      * Initialisez vos éventuels attributs ici, sémaphores etc.
      */
-    SharedSection() {
+    SharedSection() : criticalSection(1) {
         // TODO
     }
 
@@ -41,6 +41,10 @@ public:
      */
     void access(Locomotive &loco) override {
         // TODO
+        loco.arreter();
+        criticalSection.acquire();
+
+        loco.demarrer();
 
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
@@ -53,9 +57,20 @@ public:
      */
     void leave(Locomotive& loco) override {
         // TODO
+        criticalSection.release();
 
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 leaves the shared section.").arg(loco.numero())));
+    }
+
+
+    /**
+     * @brief addSwitch Permet d'ajouter les swtichs concernés par la section partagée.
+     * @param switchID  ID du switch
+     * @param direction La direction dans laquelle l'orienter
+     */
+    void addSwitch(Locomotive& loco, int before_afterShared, int switchID, int direction) {
+        trainSwitch.insert({loco, {before_afterShared, switchID, direction}});
     }
 
 private:
@@ -64,6 +79,11 @@ private:
 
     // Méthodes privées ...
     // Attribut privés ...
+    PcoSemaphore criticalSection;
+
+    // The format of the int array is as follows: before_afterSharedSection, switchID, direction
+    // before_afterSharedSection = 0 indicate before
+    std::map<Locomotive, int[3]> trainSwitch;
 };
 
 
