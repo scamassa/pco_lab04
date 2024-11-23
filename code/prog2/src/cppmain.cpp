@@ -28,6 +28,9 @@ void emergency_stop()
     locoA.arreter();
     locoB.arreter();
 
+    locoA.~Locomotive();
+    locoB.~Locomotive();
+
     afficher_message("\nSTOP!");
 }
 

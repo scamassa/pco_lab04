@@ -39,20 +39,25 @@ public:
      * la locomotive redémarée. (méthode à appeler un contact avant la section partagée).
      * @param loco La locomotive qui essaie accéder à la section partagée
      */
-    void access(Locomotive &loco) override {
+    void access(Locomotive &loco, int priority) override {
         // TODO
         if (isUsed) {
             loco.arreter();
-        }
-        criticalSection.acquire();
-        mutex.acquire();
-        isUsed = true;
-        mutex.release();
-        loco.demarrer();
+        } else {
+            criticalSection.acquire();
+            mutex.acquire();
+            isUsed = true;
+            mutex.release();
+            loco.demarrer();
 
-        // Exemple de message dans la console globale
-        afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
+            // Exemple de message dans la console globale
+            afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
+        }
     }
+
+    void request(Locomotive& loco, int priority) {}
+
+    void togglePriorityMode() {}
 
     /**
      * @brief leave Méthode à appeler pour indiquer que la locomotive est sortie de la section

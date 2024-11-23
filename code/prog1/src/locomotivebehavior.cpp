@@ -24,15 +24,15 @@ void LocomotiveBehavior::run()
     while(true) {
         attendre_contact(stationID);
         if (toursDone >= nbTourMax) {
-            station->waitingAtStation();
             loco.arreter();
+            loco.afficherMessage("Je m'arrête en gare !");
+            station->arrives();
             toursDone = 0;
             loco.inverserSens();
-            while (station->getTrainsWaiting() < station->getTrains()) {}
             sleep(2);
-            station->leavingStation();
             std::swap(contactBeforeShared, contactAfterShared);
             loco.demarrer();
+            loco.afficherMessage("Je repart !");
         } else {
             ++toursDone;
         }

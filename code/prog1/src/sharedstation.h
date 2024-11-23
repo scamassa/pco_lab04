@@ -13,11 +13,11 @@ public:
     int getTrains();
     int getTrainsWaiting();
 
-    void waitingAtStation();
-    void leavingStation();
+    void arrives();
 private:
     /* TODO */
     PcoSemaphore mutex;
+    PcoSemaphore wait;
 
     int nbTrainsWaiting;
     const int nbTrains;
