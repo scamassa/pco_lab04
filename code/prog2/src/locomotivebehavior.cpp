@@ -29,26 +29,37 @@ void LocomotiveBehavior::run()
             station->arrives();
             toursDone = 0;
             loco.inverserSens();
+            setRandomPriority();
+            sharedSection->togglePriorityMode();
             sleep(2);
             std::swap(contactBeforeShared, contactAfterShared);
+            std::swap(contactRequest, contactRequestAfter);
             loco.demarrer();
             loco.afficherMessage("Je repart !");
         } else {
             ++toursDone;
         }
 
-        // On attend qu'une locomotive arrive sur le contact 1.
-        // Pertinent de faire ça dans les deux threads? Pas sûr...
+        attendre_contact(contactRequest);
+        sharedSection->request(loco, loco.priority);
+
         attendre_contact(contactBeforeShared);
-        sharedSection->access(this->loco, 0);
+        sharedSection->access(loco, loco.priority);
 
         for (size_t x = 0; x < trainSwitchMap.size(); ++x) {
             diriger_aiguillage(trainSwitchMap.at(x).first, trainSwitchMap.at(x).second, 0);
         }
 
         attendre_contact(contactAfterShared);
-        sharedSection->leave(this->loco);
+        sharedSection->leave(loco);
     }
+}
+
+void LocomotiveBehavior::setRandomPriority() {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(1, 10);
+    this->loco.priority = dis(gen);
 }
 
 void LocomotiveBehavior::addSwitch(int switchID, int direction) {
@@ -71,9 +82,12 @@ LocomotiveBehavior::LocomotiveBehavior(Locomotive& loco,
                                        std::shared_ptr<SharedSectionInterface> sharedSection,
                                        int nBefore,
                                        int nAfter,
+                                       int rBefore,
+                                       int rAfter,
                                        std::shared_ptr<SharedStation> station,
                                        int nbTours,
                                        int stationID
-                                       ) : loco(loco), sharedSection(sharedSection), contactBeforeShared(nBefore), contactAfterShared(nAfter), station(station), nbTourMax(nbTours), stationID(stationID) {
+                                       ) : loco(loco), sharedSection(sharedSection), contactBeforeShared(nBefore), contactAfterShared(nAfter), contactRequest(rBefore), contactRequestAfter(rAfter), station(station), nbTourMax(nbTours), stationID(stationID) {
     toursDone = 0;
+    setRandomPriority();
 }

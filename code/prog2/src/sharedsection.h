@@ -14,6 +14,7 @@
 #include "locomotive.h"
 #include "ctrain_handler.h"
 #include "sharedsectioninterface.h"
+#include <set>
 
 /**
  * @brief La classe SharedSection implémente l'interface SharedSectionInterface qui
@@ -43,21 +44,27 @@ public:
         // TODO
         if (isUsed) {
             loco.arreter();
-        } else {
+        }
+        if (&waitingLocos.begin()->loco == &loco && waitingLocos.begin()->priority == priority) {
             criticalSection.acquire();
             mutex.acquire();
             isUsed = true;
             mutex.release();
             loco.demarrer();
-
-            // Exemple de message dans la console globale
-            afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
         }
+
+        // Exemple de message dans la console globale
+        afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
     }
 
-    void request(Locomotive& loco, int priority) {}
+    void request(Locomotive& loco, int priority) override {
+        PrioLoco t(loco, priority);
+        waitingLocos.insert(t);
+    }
 
-    void togglePriorityMode() {}
+    void togglePriorityMode() override {
+        priorityMode = (priorityMode == PriorityMode::HIGH_PRIORITY ? PriorityMode::LOW_PRIORITY : PriorityMode::HIGH_PRIORITY);
+    }
 
     /**
      * @brief leave Méthode à appeler pour indiquer que la locomotive est sortie de la section
@@ -68,6 +75,7 @@ public:
         // TODO
         mutex.acquire();
         isUsed = false;
+        waitingLocos.erase(waitingLocos.begin());
         mutex.release();
         criticalSection.release();
 
@@ -83,6 +91,24 @@ private:
     // Attribut privés ...
     PcoSemaphore criticalSection, mutex;
     bool isUsed;
+    PriorityMode priorityMode = PriorityMode::HIGH_PRIORITY;
+
+    struct PrioLoco {
+        Locomotive& loco;
+        int priority;       // Priority (1 to 10)
+
+        PrioLoco(Locomotive& n, int p) : loco(n), priority(p) {}
+
+        // Define operator< for ordering in std::set
+        bool operator<(const PrioLoco& other) const {
+            // Higher priority first; break ties by ID
+            if (priority != other.priority)
+                return priority > other.priority;
+            return loco.numero() < other.loco.numero();
+        }
+    };
+
+    std::set<PrioLoco> waitingLocos;
 };
 
 

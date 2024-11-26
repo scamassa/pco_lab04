@@ -26,6 +26,8 @@ public:
                        std::shared_ptr<SharedSectionInterface> sharedSection,
                        int nBefore,
                        int nAfter,
+                       int rBefore,
+                       int rAfter,
                        std::shared_ptr<SharedStation> station,
                        int nbTours,
                        int stationID
@@ -38,6 +40,8 @@ public:
      * @param direction La direction dans laquelle l'orienter
      */
     void addSwitch(int switchID, int direction);
+
+    void setRandomPriority();
 
 
 protected:
@@ -72,7 +76,7 @@ protected:
      * Par exemple la priorité ou le parcours
      */
 
-    int contactBeforeShared, contactAfterShared;
+    int contactBeforeShared, contactAfterShared, contactRequest, contactRequestAfter;
 
     std::vector<std::pair<int, int>> trainSwitchMap;    // Map of Switch ID to SwitchData
     std::shared_ptr<SharedStation> station;
