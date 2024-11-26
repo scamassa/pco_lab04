@@ -41,17 +41,24 @@ public:
      * @param loco La locomotive qui essaie accéder à la section partagée
      */
     void access(Locomotive &loco, int priority) override {
-        // TODO
-        if (isUsed) {
+        mutex.acquire();
+        auto topPrioLoco = waitingLocos.begin();
+        if (&topPrioLoco->loco == &loco && !isUsed) {
+            mutex.release();
+            criticalSection.acquire();
+            mutex.acquire();
+            isUsed = true;
+            mutex.release();
+        } else {
             loco.arreter();
-        }
-        if (&waitingLocos.begin()->loco == &loco && waitingLocos.begin()->priority == priority) {
+            mutex.release();
             criticalSection.acquire();
             mutex.acquire();
             isUsed = true;
             mutex.release();
             loco.demarrer();
         }
+        loco.fixerVitesse(loco.vitesse() * 3);
 
         // Exemple de message dans la console globale
         afficher_message(qPrintable(QString("The engine no. %1 accesses the shared section.").arg(loco.numero())));
@@ -59,6 +66,7 @@ public:
 
     void request(Locomotive& loco, int priority) override {
         PrioLoco t(loco, priority);
+        loco.fixerVitesse(loco.vitesse() / 3);
         waitingLocos.insert(t);
     }
 

@@ -109,16 +109,14 @@ int cmain()
     std::shared_ptr<SharedStation> station = std::make_shared<SharedStation>(nbTrains);
 
     // Création du thread pour la loco 0
-    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 17, 23, 27, 24, station, 2, 26);
-    //std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 18, 16, 17, 23, station, 2, 26);
+    std::unique_ptr<Launchable> locoBehaveA = std::make_unique<LocomotiveBehavior>(locoA, sharedSection, 18, 16, 17, 23, station, 2, 26);
     if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveA.get())) {
         ptrLoco->addSwitch(11, DEVIE);
         ptrLoco->addSwitch(9, DEVIE);
     }
 
     // Création du thread pour la loco 1
-    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 7, 19, 6, 20, station, 3, 31);
-    //std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 14, 13, 7, 19, station, 3, 31);
+    std::unique_ptr<Launchable> locoBehaveB = std::make_unique<LocomotiveBehavior>(locoB, sharedSection, 14, 13, 7, 19, station, 3, 31);
     if (auto ptrLoco = dynamic_cast<LocomotiveBehavior*>(locoBehaveB.get())) {
         ptrLoco->addSwitch(11, TOUT_DROIT);
         ptrLoco->addSwitch(9, TOUT_DROIT);
