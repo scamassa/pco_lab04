@@ -42,7 +42,7 @@ public:
      */
     void access(Locomotive &loco, int priority) override {
         mutex.acquire();
-        auto topPrioLoco = waitingLocos.begin();
+        auto topPrioLoco = (priorityMode == PriorityMode::HIGH_PRIORITY ? waitingLocos.begin() : waitingLocos.end());
         if (&topPrioLoco->loco == &loco && !isUsed) {
             mutex.release();
             criticalSection.acquire();
